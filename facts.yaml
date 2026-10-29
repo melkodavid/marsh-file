@@ -1,0 +1,35 @@
+# Source of truth for every number, date, and title that appears in a resume or cover letter.
+# The checker (tools/check.py) fails on any number in a document that is not covered here.
+#
+# status:
+#   verified    - confirmed. Use freely.
+#   provisional - use it, but a confirmation is still open. The checker warns every time.
+#   pending     - do NOT use until confirmed. The checker fails if it appears.
+#
+# tokens: the exact strings as they appear in a document (simple text match).
+# Claude fills this in during setup. Replace the example entry.
+
+setup_complete: false
+
+facts:
+  - id: example_result
+    tokens: ["25%"]
+    text: "Example: grew newsletter sign-ups 25% in six months"
+    status: pending
+    note: "Delete this entry during setup."
+
+# Numbers that are not claims and can always appear (street numbers, course codes, etc.).
+allow_numbers: []
+
+# Interview-only. Regular expressions, case-insensitive. Any hit is a FAIL.
+never_publish: []
+
+# Wording to avoid (overclaiming solo credit, words he hates). Regular expressions. Any hit is a FAIL.
+banned_phrases:
+  - '\bsingle-handedly\b'
+
+# Resume layout check (used with --resume). Leave a field empty to skip that check.
+resume_layout:
+  pages: 2
+  page1_must_contain: ""      # e.g. the last job title that must stay on page 1
+  page2_starts_with: ""       # e.g. the first job title on page 2
